@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.warehouse.dao.StoreToStoreDao">
+  
+	
+ 	<select id="selectAllGoods" resultType="Goods">
+		select * from goods
+	</select>
+	<select id="selectGoodsFromStoreA" resultType="Goods">
+		select * from storea
+	</select>
+	<select id="selectGoodsFromStoreB" resultType="Goods">
+		select * from storeb
+	</select>
+	<select id="SelectGoodsFromStoreAyId"	parameterType="String" resultType="Integer">
+		select count(1) from storea 
+		<where>
+			goods_id = #{id}
+		</where>
+	</select>
+	<update id="updataGoodsFromStoreAbyId" parameterType="Goods">
+		update storea
+		<set>
+			goods_status = goods_status + #{goods_status}
+		</set>
+		<where>
+			goods_id = #{goods_id}
+		</where>
+	</update>
+	<insert id="insertGoodsToStoreA" parameterType="Goods">
+		insert into storea(
+ 			goods_id,
+			goods_name,
+			goods_color,
+			goods_price,
+			goods_status
+			)
+   		 values(
+   		 #{goods_id},
+   		 #{goods_name},
+   		 #{goods_color},
+   		 #{goods_price},
+   		 #{goods_status})
+	</insert>
+	<select id="SelectGoodsFromStoreById"	parameterType="String" resultType="Integer">
+		select count(1) from storeb 
+		<where>
+			goods_id = #{id}
+		</where>
+	</select>
+	<update id="updataGoodsFromStoreBbyId" parameterType="Goods">
+		update storeb
+		<set>
+			goods_status = goods_status + #{goods_status}
+		</set>
+		<where>
+			goods_id = #{goods_id}
+		</where>
+	</update>
+	<insert id="insertGoodsToStoreB" parameterType="Goods">
+		insert into storeb(
+ 			goods_id,
+			goods_name,
+			goods_color,
+			goods_price,
+			goods_status
+			)
+   		 values(
+   		 #{goods_id},
+   		 #{goods_name},
+   		 #{goods_color},
+   		 #{goods_price},
+   		 #{goods_status})
+	</insert>
+	<!--从商店b里面查询产品回显通过id -->
+	<select id="selectGoodsFromStoreBbyID" parameterType="Integer" resultType="Goods" >
+		select * from storeb 
+		<where>
+			goods_id = #{id}
+		</where>
+	</select>
+	<!--从商店a里面查询产品回显通过id -->
+	<select id="selectGoodsFromStoreAbyID" parameterType="Integer" resultType="Goods" >
+		select * from storea 
+		<where>
+			goods_id = #{id}
+		</where>
+	</select>
+	
+	<update id="reduceGoodsFromStoreA" parameterType="Goods">
+		update storea
+		<set>
+			goods_status = goods_status - #{goods_status}
+		</set>
+		<where>
+			goods_id = #{goods_id}
+		</where>
+	</update>
+	<update id="reduceGoodsFromStoreB" parameterType="Goods">
+		update storeb
+		<set>
+			goods_status = goods_status - #{goods_status}
+		</set>
+		<where>
+			goods_id = #{goods_id}
+		</where>
+	</update>
+  </mapper>

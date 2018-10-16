@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.warehouse.dao.GoodsLogDao">
+  
+  <!--查询date字段是否存在 -->
+ 	<select id="SearchLogData" parameterType="Date"
+		resultType="Integer">
+		SELECT COUNT(1) FROM logdata
+		<where>
+			logdata_data = #{date}
+		</where>
+	</select>
+	
+	<!-- 插入表字段 -->
+	<insert id="insertLogData" parameterType="Date">
+		insert into logdata(logdata_data) values(#{date})
+	</insert>
+	
+	<select id="searchData" parameterType="Date" resultType="LogData">
+		select * from logdata
+		<where>
+			logdata_data = #{date}
+		</where>
+	</select>
+	
+	<!-- 插入日志信息表 -->
+	<insert id="insertDataLog" parameterType="LogDataInfor">
+		insert into datalog (
+		log_goods_id,
+		log_goods_name,
+		log_goods_color,
+		log_goods_number,
+		log_goods_inorout,
+		log_goods_data,
+		log_goods_daytime
+		) values(
+		#{log_goods_id},
+		#{log_goods_name},
+		#{log_goods_color},
+		#{log_goods_number},
+		#{log_goods_inorout},
+		#{log_goods_data},
+		#{log_goods_daytime})
+		
+	</insert>
+		
+  </mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.warehouse.dao.GoodsDatalogDao">
+  <!-- 查询 -->
+  	<select id="selectFromType" resultType="LogData">
+  		SELECT * FROM logdata 
+  	</select>
+  	
+  	<!-- 总条数 -->
+  	<select id="logCountByQuery" parameterType="QueryVoLog" resultType="Integer">
+  		SELECT COUNT(1) FROM datalog
+  		<where>
+  			<if test="log_goods_data != null and log_goods_data != ''">
+				and log_goods_data = #{log_goods_data}
+			</if>
+  		</where>
+  	</select>
+  	
+  	<select id="selectAllLogData" parameterType="QueryVoLog"
+		resultType="LogDataInfor">
+		SELECT * FROM datalog
+		<where>
+			<if test="log_goods_data != null and log_goods_data != ''">
+				and log_goods_data = #{log_goods_data}
+			</if>
+		</where>
+		limit #{startRow},#{size}
+	</select>
+  </mapper>
